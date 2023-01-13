@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:grid="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/choice_grid"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/add_component_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="30dp"
+        android:text="Dodaj składnik"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        android:textStyle="bold"></TextView>
+
+    <EditText
+        android:id="@+id/component_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@id/add_component_title"
+        android:background="#30ffffff"
+        android:drawableLeft="@drawable/ic_baseline_person_outline_24"
+        android:drawablePadding="20dp"
+        android:hint="Nazwa produktu"
+        android:padding="20dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"></EditText>
+
+    <EditText
+        android:id="@+id/component_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@id/component_name"
+        android:background="#30ffffff"
+        android:drawableLeft="@drawable/ic_baseline_description_24"
+        android:drawablePadding="20dp"
+        android:hint="Opis produktu"
+        android:padding="20dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"></EditText>
+
+    <Spinner
+        android:id="@+id/component_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@id/component_description"
+        android:background="#30ffffff"
+        android:hint="Opis produktu"
+        android:padding="20dp"
+        android:textColor="@color/white"
+        android:spinnerMode="dropdown"
+        android:popupBackground="#ff66ff"/>
+
+    <Button
+        android:id="@+id/btn_add_component"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dodaj"
+        android:textSize="25dp"
+        android:layout_below="@+id/component_type"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#ff66ff"
+        android:layout_margin="20dp"></Button>
+
+    <LinearLayout
+        android:id="@+id/socialicons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/google"></ImageView>
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/fb"></ImageView>
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/twitter"></ImageView>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_margin="50dp"
+    tools:context=".activity.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <Button
+            android:id="@+id/button_add_component"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dodaj składnik do bazy"
+            android:layout_gravity="center" />
+        <Button
+            android:id="@+id/button_add_recipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dodaj przepis do bazy"
+            android:layout_gravity="center" />
+        <Button
+            android:id="@+id/button_filter_drink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Drink na bazie składników"
+            android:layout_gravity="center" />
+
+        <Button
+            android:id="@+id/button_component_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Lista składników" />
+
+        <Button
+            android:id="@+id/button_recipe_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lista drinków"
+            android:layout_gravity="center" />
+    </LinearLayout>
+</LinearLayout>
