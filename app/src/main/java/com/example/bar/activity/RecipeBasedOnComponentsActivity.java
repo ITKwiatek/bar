@@ -1,5 +1,6 @@
 package com.example.bar.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,8 +10,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.bar.R;
+import com.example.bar.databinding.ActivityRecipeBasedOnComponentsBinding;
+import com.example.bar.databinding.ActivityRecipeListBinding;
 import com.example.bar.model.Recipe;
 import com.example.bar.utility.QueryHelper;
+import com.example.bar.utility.RecipeComponentListAdapter;
+import com.example.bar.utility.RecipeListAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -18,16 +23,18 @@ import java.util.Collections;
 
 public class RecipeBasedOnComponentsActivity extends AppCompatActivity {
 
+    ActivityRecipeBasedOnComponentsBinding binding;
     TextView tvSelectedComponents;
     boolean[] selectedLanguage;
     ArrayList<Integer> selectedComponentsInteger = new ArrayList<>();
-    ArrayList<Recipe> recipeArrayList;
+    ArrayList<Recipe> recipeArrayList = new ArrayList<>();
     String[] availableComponentArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_based_on_components);
+        binding = ActivityRecipeBasedOnComponentsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         QueryHelper helper = new QueryHelper();
         try {
             availableComponentArray = helper.getComponentNames();
@@ -91,6 +98,7 @@ public class RecipeBasedOnComponentsActivity extends AppCompatActivity {
                         // set text on textView
                         tvSelectedComponents.setText(stringBuilder.toString());
                         loadRecipes();
+                        AdaptModelToView();
                     }
                 });
 
@@ -110,6 +118,12 @@ public class RecipeBasedOnComponentsActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+    }
+
+    private void AdaptModelToView() {
+//        ComponentListAdapter componentListAdapter = new ComponentListAdapter(ComponentListActivity.this, componentList);
+        RecipeComponentListAdapter recipeListAdapter = new RecipeComponentListAdapter(RecipeBasedOnComponentsActivity.this, recipeArrayList);
+        binding.lvComponentList.setAdapter(recipeListAdapter);
     }
 
     private void loadRecipes() {

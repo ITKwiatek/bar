@@ -4,6 +4,7 @@ import android.widget.TextView;
 
 import com.example.bar.model.Component;
 import com.example.bar.model.Recipe;
+import com.example.bar.model.RecipeComponent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -136,12 +137,12 @@ public class QueryHelper {
         ArrayList<Recipe> componentList = new ArrayList<Recipe>();
         try {
             if (connection != null) {
-                String query = "Select name, description from recipe";
+                String query = "Select recipe_id, name, description from recipe";
                 Statement st = connection.createStatement();
                 ResultSet resultSet = st.executeQuery(query);
 
                 while (resultSet.next()) {
-                    Recipe r = new Recipe(resultSet.getString(1), resultSet.getString(2));
+                    Recipe r = new Recipe(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
                     componentList.add(r);
                 }
             }
@@ -152,8 +153,56 @@ public class QueryHelper {
     }
 
 
-    public ArrayList<Recipe> getRecipesBasedOnComponents(TextView tvSelectedComponents) {
-        return new ArrayList<>();
+    public ArrayList<Recipe> getRecipesBasedOnComponents(TextView tvSelectedComponents) throws Exception {
+        ArrayList<Recipe> recipes = getRecipeList();
+        String[] selectedComponentsNames = tvSelectedComponents.getText().toString().split(",");
+        ArrayList<Integer> selectedComponentIds= getComponentsIdsByNames(selectedComponentsNames);
+        ArrayList<Recipe> validRecipes = new ArrayList<>();
+
+        for(int i=0; i<recipes.size(); i++) {
+            ArrayList<Integer> componentsInRecipe = getComponentsInRecipe(recipes.get(i).getRecipe_id());
+                if(selectedComponentIds.size() > 0 && componentsInRecipe.size() > 0 && selectedComponentIds.containsAll(componentsInRecipe))
+                    validRecipes.add(recipes.get(i));
+            }
+        return validRecipes;
+        }
+//
+//    public ArrayList<RecipeComponent> getRecipeComponents() throws Exception {
+//        ArrayList<RecipeComponent> recipeComponents = new ArrayList<>();
+//        try {
+//            if (connection != null) {
+//                String query = "Select * from recipe_component";
+//                PreparedStatement st = connection.prepareStatement(query);
+//                ResultSet resultSet = st.executeQuery();
+//
+//                while (resultSet.next()) {
+//                    RecipeComponent rc = new RecipeComponent(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3));
+//                    recipeComponents.add(rc);
+//                }
+//            }
+//        } catch (Exception e) {
+//            throw new Exception("No DB connection " + e.getMessage());
+//        }
+//        return recipeComponents;
+//    }
+
+    public ArrayList<Integer> getComponentsInRecipe(Integer recipeId) throws Exception {
+        ArrayList<Integer> components = new ArrayList<>();
+        try {
+            if (connection != null) {
+                String query = "Select component_id from recipe_component where recipe_id = " + recipeId ;
+                PreparedStatement st = connection.prepareStatement(query);
+                ResultSet resultSet = st.executeQuery();
+
+                while (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    components.add(id);
+                }
+            }
+        } catch (Exception e) {
+            throw new Exception("No DB connection " + e.getMessage());
+        }
+        return components;
     }
 
     private ArrayList<Integer> getComponentsIdsByNames(String[] componentNames) throws Exception {
